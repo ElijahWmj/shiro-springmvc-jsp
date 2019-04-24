@@ -41,13 +41,11 @@ public class MyRealm extends AuthorizingRealm {
 	 * 用于验证身份
 	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken token) throws AuthenticationException {
-		String username = (String) token.getPrincipal();
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		String username = (String) token.getPrincipal();//获取身份
 		User user = userExtendDao.selectByUsername(username);
 		if (null != user) {
-			AuthenticationInfo info = new SimpleAuthenticationInfo(
-					user.getUsername(), user.getPassword(), "xx");
+			AuthenticationInfo info = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), "xx");
 			return info;
 		}
 		return null;
