@@ -66,7 +66,6 @@
                         <li><a href="user/blogExample"
                                class="glyphicon glyphicon-file">博客展示</a></li>
                         <li><a href="#" style="margin-top: 2px;" id="w"></a></li>
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <c:if test="${loginUser != null }">
@@ -91,13 +90,11 @@
                             <li><a href="user/register"><span
                                     class="glyphicon glyphicon-user"></span> 注册 </a></li>
                         </c:if>
-
                     </ul>
                 </div>
             </nav>
         </div>
     </div>
-
     <br> <br> <br> <br> <br> <br>
 </div>
 <!-- Content -->
@@ -177,8 +174,6 @@
                     </div>
                 </form>
             </div>
-
-
             <div class="modal-footer"></div>
         </div>
     </div>
@@ -201,26 +196,25 @@
             return;
         }
         /* ajax验证密码 */
-        $
-            .ajax({
-                type: "GET",
-                url: "validatePassword",
-                data: {
-                    "username": username
-                },
-                async: true,
-                success: function (data) {
-                    /* alert(password==data); */
-                    if (password == data) {
-                        $("#login1").submit();
-                    } else {
-                        $("#loginInfo")
-                            .html(
-                                "<b style='color:red;font-size:15px;'>用户名或密码错误！</b>");
-                    }
-                    /* alert(data); */
+        $.ajax({
+            type: "GET",
+            url: "validatePassword",
+            data: {
+                "username": username
+            },
+            async: true,
+            success: function (data) {
+                /* alert(password==data); */
+                if (password == data) {
+                    $("#login1").submit();
+                } else {
+                    $("#loginInfo")
+                        .html(
+                            "<b style='color:red;font-size:15px;'>用户名或密码错误！</b>");
                 }
-            })
+                /* alert(data); */
+            }
+        })
     }
 
     /* Enter提交 */
@@ -236,27 +230,26 @@
     });
 
     /* 天气预报 */
-    $
-        .getScript(
-            'http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&day=0&city=&dfc=1&charset=utf-8',
-            function (a) {
-                var s = "", r = "", q = "";
-                for (s in window.SWther.w) {
-                    q = SWther.w[s][0];
-                    r = {
-                        city: s,
-                        date: SWther.add.now.split(" ")[0] || "",
-                        day_weather: q.s1,
-                        night_weather: q.s2,
-                        day_temp: q.t1,
-                        night_temp: q.t2,
-                        day_wind: q.p1,
-                        night_wind: q.p2
-                    }, $("#w").html(
-                        "[" + r.city + "]" + " " + q.s1 + " "
-                        + q.t1 + "℃");
-                }
-            });
+    $.getScript(
+        'http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&day=0&city=&dfc=1&charset=utf-8',
+        function (a) {
+            var s = "", r = "", q = "";
+            for (s in window.SWther.w) {
+                q = SWther.w[s][0];
+                r = {
+                    city: s,
+                    date: SWther.add.now.split(" ")[0] || "",
+                    day_weather: q.s1,
+                    night_weather: q.s2,
+                    day_temp: q.t1,
+                    night_temp: q.t2,
+                    day_wind: q.p1,
+                    night_wind: q.p2
+                }, $("#w").html(
+                    "[" + r.city + "]" + " " + q.s1 + " "
+                    + q.t1 + "℃");
+            }
+        });
 </script>
 </body>
 </html>
